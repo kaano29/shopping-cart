@@ -1,4 +1,3 @@
-import react from "react"
 
 const CartHeader = () => (
     <nav className="navbar navbar-dark bg-primary">
