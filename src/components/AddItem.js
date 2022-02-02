@@ -21,16 +21,35 @@ class AddItem extends Component {
         return (
             <div className="container">
                 <label className="mt-5 mb-2">Quantity</label>
-                <input className="form-control" type="number" value={this.state.quantity} onChange={e => this.updateQuantity(e)} />
+                <input
+                    className="form-control"
+                    type="number"
+                    value={this.state.quantity}
+                    onChange={e => this.updateQuantity(e)}
+                />
 
                 <label className="mt-2 mb-2">Products</label>
-                {console.log(this.state.product)}
-                <select className="form-control" value={JSON.stringify(this.state.product)} id="products" onChange={e => this.updateProduct(e)} >
+                <select
+                    className="form-control"
+                    value={JSON.stringify(this.state.product)}
+                    id="products"
+                    onChange={e => this.updateProduct(e)}
+                >
                     <option value={"{}"} disabled> -- select a product -- </option>
-                    {this.props.products.map(product => <option key={product.id} value={JSON.stringify(product)}>{product.name}</option>)}
+                    {this.props.products.map(product =>
+                        <option
+                            key={product.id}
+                            value={JSON.stringify(product)}>{product.name}
+                        </option>)
+                    }
                 </select>
 
-                <button className="btn btn-primary mt-3 mb-3" type="submit" onClick={e => this.submitForm(e)} >Submit</button>
+                <button
+                    className="btn btn-primary mt-3 mb-3"
+                    type="submit"
+                    onClick={e => this.submitForm(e)}
+                >Submit
+                </button>
             </div>
         )
     }
