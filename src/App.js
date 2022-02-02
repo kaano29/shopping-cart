@@ -5,6 +5,8 @@ import CartItems from './components/CartItems';
 import CartFooter from './components/CartFooter'
 import { Component } from 'react';
 import AddItem from './components/AddItem';
+import Total from './components/Total';
+import { isContentEditable } from '@testing-library/user-event/dist/utils';
 
 class App extends Component {
 
@@ -30,11 +32,21 @@ class App extends Component {
     this.setState({ cartItems: [...this.state.cartItems, newItem] })
   }
 
+  calculateTotal = () => {
+    if (this.state.cartItems == 0)
+      return 0
+
+    return this.state.cartItems
+      .map(item => item.product.priceInCents * item.quantity)
+      .reduce((prev, curr) => prev + curr)
+  }
+
   render() {
     return (
       <div>
         <CartHeader />
         <CartItems itemList={this.state.cartItems} />
+        <Total total={this.calculateTotal()} />
         <AddItem products={this.state.products} onSubmit={this.onAddItem} />
         <CartFooter copyright="2016" />
       </div >
