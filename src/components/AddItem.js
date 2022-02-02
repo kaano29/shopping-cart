@@ -1,20 +1,40 @@
 
+import { Component } from 'react'
 
-let quantity = 0
-let product = {}
+class AddItem extends Component {
 
-const AddItem = ({ products, onSubmit }) => (
-    <div className="container">
-        <label className="mt-5 mb-2">Quantity</label>
-        <input className="form-control" type="number" name="quantityInput" onChange={e => quantity += parseInt(e.target.value)} />
+    state = { quantity: "", product: {} }
 
-        <label className="mt-2 mb-2">Products</label>
-        <select className="form-control" id="products" select="none" name="productSelection" onChange={e => product = JSON.parse(e.target.value)} required>
-            <option disabled selected value> -- select a product -- </option>
-            {products.map(product => <option key={product.id} value={JSON.stringify(product)}>{product.name}</option>)}
-        </select>
+    updateQuantity = e => this.setState({ quantity: e.target.value })
 
-        <button className="btn btn-primary mt-3 mb-3" type="submit" onClick={e => onSubmit(e, { product, quantity })} >Submit</button>
-    </div>)
+    updateProduct = e => {
+        this.setState({ product: JSON.parse(e.target.value) })
+    }
+    submitForm = (e) => {
+        const item = { product: this.state.product, quantity: this.state.quantity }
+        this.setState({ quantity: "" })
+        this.props.onSubmit(e, item)
+    }
+
+    render() {
+
+        return (
+            <div className="container">
+                <label className="mt-5 mb-2">Quantity</label>
+                <input className="form-control" type="number" value={this.state.quantity} onChange={e => this.updateQuantity(e)} />
+
+                <label className="mt-2 mb-2">Products</label>
+                {console.log(this.state.product)}
+                <select className="form-control" value={JSON.stringify(this.state.product)} id="products" onChange={e => this.updateProduct(e)} >
+                    <option value={"{}"} disabled> -- select a product -- </option>
+                    {this.props.products.map(product => <option key={product.id} value={JSON.stringify(product)}>{product.name}</option>)}
+                </select>
+
+                <button className="btn btn-primary mt-3 mb-3" type="submit" onClick={e => this.submitForm(e)} >Submit</button>
+            </div>
+        )
+    }
+
+}
 
 export default AddItem

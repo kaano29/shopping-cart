@@ -31,12 +31,14 @@ class App extends Component {
   }
 
   render() {
-    return (<div>
-      <CartHeader />
-      <CartItems itemList={this.state.cartItems} />
-      <AddItem products={this.state.products} onSubmit={this.onAddItem} />
-      <CartFooter copyright="2016" />
-    </div >)
+    return (
+      <div>
+        <CartHeader />
+        <CartItems itemList={this.state.cartItems} />
+        <AddItem products={this.state.products} onSubmit={this.onAddItem} />
+        <CartFooter copyright="2016" />
+      </div >
+    )
   }
 
 }
