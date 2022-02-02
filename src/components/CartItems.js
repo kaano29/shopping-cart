@@ -1,5 +1,5 @@
 
-import CartItem from './CartItemComponent'
+import CartItem from './CartItem'
 
 const CartItems = ({ itemList }) => {
 
