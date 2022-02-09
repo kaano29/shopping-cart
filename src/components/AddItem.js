@@ -3,15 +3,15 @@ import { Component } from 'react'
 
 class AddItem extends Component {
 
-    state = { quantity: "", product: {} }
+    state = { quantity: "", selectedProduct: {} }
 
     updateQuantity = e => this.setState({ quantity: e.target.value })
 
     updateProduct = e => {
-        this.setState({ product: JSON.parse(e.target.value) })
+       this.setState({ selectedProduct: JSON.parse(e.target.value) })
     }
     submitForm = (e) => {
-        const item = { product: this.state.product, quantity: this.state.quantity }
+        const item = { product: this.state.selectedProduct, quantity: this.state.quantity }
         this.setState({ quantity: "" })
         this.props.onSubmit(e, item)
     }
@@ -31,7 +31,7 @@ class AddItem extends Component {
                 <label className="mt-2 mb-2">Products</label>
                 <select
                     className="form-control"
-                    value={JSON.stringify(this.state.product)}
+                    value={JSON.stringify(this.state.selectedProduct)}
                     id="products"
                     onChange={e => this.updateProduct(e)}
                 >
