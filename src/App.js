@@ -11,17 +11,7 @@ import { isContentEditable } from '@testing-library/user-event/dist/utils';
 class App extends Component {
 
   state = {
-    products: [
-      { id: 40, name: 'Mediocre Iron Watch', priceInCents: 399 },
-      { id: 41, name: 'Heavy Duty Concrete Plate', priceInCents: 499 },
-      { id: 42, name: 'Intelligent Paper Knife', priceInCents: 1999 },
-      { id: 43, name: 'Small Aluminum Keyboard', priceInCents: 2500 },
-      { id: 44, name: 'Practical Copper Plate', priceInCents: 1000 },
-      { id: 45, name: 'Awesome Bronze Pants', priceInCents: 399 },
-      { id: 46, name: 'Intelligent Leather Clock', priceInCents: 2999 },
-      { id: 47, name: 'Ergonomic Bronze Lamp', priceInCents: 40000 },
-      { id: 48, name: 'Awesome Leather Shoes', priceInCents: 3990 },
-    ],
+    products: [],
     cartItems: []
   }
 
@@ -41,7 +31,29 @@ class App extends Component {
       .reduce((prev, curr) => prev + curr)
   }
 
+  createItems = (itemsJSON, productsJSON) => {
+
+    const items = itemsJSON.map(item => {
+      const product = productsJSON.find(p => p.id === item.product_id)
+      return {id: item.id, product, quantity: item.quantity}
+    })
+    return items
+  }
+
+  // - GET: `http://localhost:8082/api/items`
+  async componentDidMount() {
+    const productsResult = await fetch("http://localhost:8082/api/products")
+    const products = await productsResult.json()
+
+    const itemsResult = await fetch("http://localhost:8082/api/items")
+    const itemsJSON = await itemsResult.json()
+
+    const cartItems = this.createItems(itemsJSON, products)
+    this.setState({products, cartItems})
+  }
+
   render() {
+
     return (
       <div>
         <CartHeader />
