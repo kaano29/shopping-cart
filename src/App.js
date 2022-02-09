@@ -1,7 +1,7 @@
 import './App.css';
 import { Component } from 'react';
 import CartHeader from './components/CartHeader'
-import ShoppingCart from './components/ShoppingCart'
+import ShoppingCart from './components/ShoppingCart/ShoppingCart'
 import CartFooter from './components/CartFooter'
 
 class App extends Component {
