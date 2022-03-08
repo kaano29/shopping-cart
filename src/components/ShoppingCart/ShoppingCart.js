@@ -27,7 +27,7 @@ class ShoppingCart extends Component {
     }
 
     postItem = async (item) => {
-        const response = await fetch(process.env.REACT_APP_API_URL, {
+        const response = await fetch(process.env.REACT_APP_API_ITEMS, {
             method: "POST",
             headers: {
                 "Content-Type": 'application/json',
@@ -45,13 +45,13 @@ class ShoppingCart extends Component {
     }
 
     fetchProducts = async () => {
-        const response = await fetch(process.env.REACT_APP_API_URL)
+        const response = await fetch(process.env.REACT_APP_API_PRODUCTS)
         const products = await response.json()
         this.setState({ products })
     }
     
     fetchItems = async () => {
-        const response = await fetch(process.env.REACT_APP_API_URL)
+        const response = await fetch(process.env.REACT_APP_API_ITEMS)
         const items = await response.json()
         this.setState({ cartItems: items.map(i => this.parseItem(i)) })
     }
